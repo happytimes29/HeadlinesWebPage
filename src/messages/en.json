@@ -1,0 +1,35 @@
+{
+  "site": {
+    "name": "JK Space",
+    "tagline": "AI Applications, Electronics & Tech Trends"
+  },
+  "nav": {
+    "home": "Home",
+    "articles": "Articles",
+    "about": "About"
+  },
+  "home": {
+    "hero": {
+      "title": "Exploring the Frontier of Technology",
+      "subtitle": "Insights from a hardware engineer on AI, electronics, and emerging tech"
+    },
+    "latestArticles": "Latest Articles",
+    "viewAll": "View All"
+  },
+  "article": {
+    "publishedOn": "Published on",
+    "category": "Category",
+    "summary": "Summary",
+    "references": "References",
+    "readMore": "Read More"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "builtWith": "Built with Next.js"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found"
+  }
+}

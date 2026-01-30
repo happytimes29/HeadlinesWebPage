@@ -1,0 +1,35 @@
+{
+  "site": {
+    "name": "JK Space",
+    "tagline": "AI 應用、電子工程與科技趨勢"
+  },
+  "nav": {
+    "home": "首頁",
+    "articles": "文章",
+    "about": "關於"
+  },
+  "home": {
+    "hero": {
+      "title": "探索科技前沿",
+      "subtitle": "一位硬體工程師對 AI、電子與新興科技的洞察"
+    },
+    "latestArticles": "最新文章",
+    "viewAll": "查看全部"
+  },
+  "article": {
+    "publishedOn": "發布於",
+    "category": "分類",
+    "summary": "摘要",
+    "references": "參考來源",
+    "readMore": "閱讀更多"
+  },
+  "footer": {
+    "copyright": "版權所有",
+    "builtWith": "使用 Next.js 建構"
+  },
+  "common": {
+    "loading": "載入中...",
+    "error": "發生錯誤",
+    "notFound": "頁面未找到"
+  }
+}
