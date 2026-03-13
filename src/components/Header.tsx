@@ -35,6 +35,12 @@ export default function Header() {
           >
             🛒 商店
           </Link>
+          <Link
+            href={`/${locale}/subscribe`}
+            className="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            📧 訂閱
+          </Link>
 
           {/* Language Switcher */}
           <div className="relative group">
