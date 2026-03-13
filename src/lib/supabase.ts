@@ -48,16 +48,30 @@ export async function getArticleBySlug(
     return null;
   }
 
+  // Decode the slug to handle URL encoding
+  const decodedSlug = decodeURIComponent(slug);
+  
   const { data, error } = await supabase
     .from('articles')
     .select('*')
-    .eq('slug', slug)
+    .eq('slug', decodedSlug)
     .eq('locale', locale)
     .single();
 
   if (error) {
-    console.error('Error fetching article:', error);
-    return null;
+    // Try with original slug if decoded doesn't work
+    const { data: data2, error: error2 } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .eq('locale', locale)
+      .single();
+    
+    if (error2) {
+      console.error('Error fetching article:', error);
+      return null;
+    }
+    return data2;
   }
 
   return data;

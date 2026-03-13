@@ -16,8 +16,16 @@ interface ArticlePageProps {
 }
 
 export async function generateStaticParams() {
-  const slugs = await getAllArticleSlugs();
-  return slugs.map(({ slug, locale }) => ({ locale, slug }));
+  try {
+    const slugs = await getAllArticleSlugs();
+    if (!slugs || slugs.length === 0) {
+      return [];
+    }
+    return slugs.map(({ slug, locale }) => ({ locale, slug }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
 
 export async function generateMetadata({
