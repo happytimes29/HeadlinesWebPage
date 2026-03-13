@@ -29,6 +29,12 @@ export default function Header() {
           >
             {t('nav.articles')}
           </Link>
+          <Link
+            href={`/${locale}/shop`}
+            className="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            🛒 商店
+          </Link>
 
           {/* Language Switcher */}
           <div className="relative group">
