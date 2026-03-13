@@ -4,6 +4,9 @@ import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import { getArticles } from '@/lib/supabase';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 interface ArticlesPageProps {
   params: Promise<{ locale: string }>;
 }

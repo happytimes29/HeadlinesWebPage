@@ -8,6 +8,9 @@ import JsonLd from '@/components/JsonLd';
 import { getArticleBySlug, getAllArticleSlugs } from '@/lib/supabase';
 import { locales } from '@/i18n/config';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 interface ArticlePageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
