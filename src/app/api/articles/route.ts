@@ -1,28 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase admin client with service role key
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+const supabaseAdmin = supabaseUrl && supabaseServiceKey 
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : null;
 
 export async function POST(request: NextRequest) {
   try {
+    if (!supabaseAdmin) {
+      return NextResponse.json(
+        { error: 'Server not configured. Please set SUPABASE_SERVICE_ROLE_KEY.' },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     
     const { slug, locale, title, content, category, summary } = body;
     
-    if (!slug || !locale || !title || !content) {
+    if (!title || !content) {
       return NextResponse.json(
-        { error: 'Missing required fields: slug, locale, title, content' },
+        { error: 'Missing required fields: title, content' },
         { status: 400 }
       );
     }
 
-    // Generate slug if not provided
+    // Generate slug from title
     const articleSlug = slug || title.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
       .replace(/(^-|-$)/g, '');
 
     const { data, error } = await supabaseAdmin

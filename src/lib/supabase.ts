@@ -1,10 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+  : null;
 
 export type Article = Database['public']['Tables']['articles']['Row'];
 
@@ -12,6 +14,11 @@ export async function getArticles(
   locale: string,
   limit?: number
 ): Promise<Article[]> {
+  if (!supabase) {
+    console.warn('Supabase client not initialized');
+    return [];
+  }
+
   let query = supabase
     .from('articles')
     .select('*')
@@ -36,6 +43,11 @@ export async function getArticleBySlug(
   slug: string,
   locale: string
 ): Promise<Article | null> {
+  if (!supabase) {
+    console.warn('Supabase client not initialized');
+    return null;
+  }
+
   const { data, error } = await supabase
     .from('articles')
     .select('*')
@@ -52,6 +64,11 @@ export async function getArticleBySlug(
 }
 
 export async function getArticlesByCategory(category: string, locale: string) {
+  if (!supabase) {
+    console.warn('Supabase client not initialized');
+    return [];
+  }
+
   const { data, error } = await supabase
     .from('articles')
     .select('*')
@@ -68,6 +85,11 @@ export async function getArticlesByCategory(category: string, locale: string) {
 }
 
 export async function getAllArticleSlugs() {
+  if (!supabase) {
+    console.warn('Supabase client not initialized');
+    return [];
+  }
+
   const { data, error } = await supabase
     .from('articles')
     .select('slug, locale');
