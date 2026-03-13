@@ -83,7 +83,6 @@ export default async function SubscribePage({ params }: SubscribePageProps) {
                   <h3 className="font-semibold">{benefit.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {benefit.description}
-                  }
                   </p>
                 </div>
               </div>
