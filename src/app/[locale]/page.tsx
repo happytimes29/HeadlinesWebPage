@@ -75,9 +75,9 @@ export default async function HomePage({ params }: HomePageProps) {
               </Link>
             </div>
 
-            {articles.length > 0 ? (
+            {articles && articles.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {articles.map((article) => (
+                {articles.map((article: any) => (
                   <ArticleCard key={article.id} article={article} />
                 ))}
               </div>
