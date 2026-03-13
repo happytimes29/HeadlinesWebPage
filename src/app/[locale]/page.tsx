@@ -5,6 +5,9 @@ import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import { getArticles } from '@/lib/supabase';
 
+// Force dynamic rendering for daily content
+export const dynamic = 'force-dynamic';
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
@@ -24,7 +27,20 @@ export default async function HomePage({ params }: HomePageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations();
-  const articles = await getArticles(locale, 6);
+  
+  // Get today's articles only
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  // Get all recent articles and filter by today's date
+  const allArticles = await getArticles(locale, 20);
+  const todayArticles = allArticles.filter(article => {
+    const articleDate = new Date(article.published_at).toISOString().split('T')[0];
+    return articleDate === todayStr;
+  });
+
+  // Use today's articles, fallback to most recent if none today
+  const articles = todayArticles.length > 0 ? todayArticles : allArticles.slice(0, 6);
 
   return (
     <div className="flex min-h-screen flex-col">
