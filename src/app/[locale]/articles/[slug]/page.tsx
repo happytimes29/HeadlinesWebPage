@@ -106,30 +106,45 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
           </header>
 
+          {/* Featured Image */}
+          {article.images && article.images.length > 0 && (
+            <div className="mb-8">
+              <img
+                src={article.images[0]}
+                alt={article.title}
+                className="w-full rounded-lg object-cover max-h-[400px]"
+              />
+            </div>
+          )}
+
           {/* Article Content */}
           <div className="mb-12">
             <ArticleContent content={article.content} />
           </div>
 
-          {/* Summary Section (GEO Optimization) */}
-          {article.summary && (
+          {/* Source Section */}
+          {article.source_url && (
             <section className="mb-8 rounded-lg border border-border bg-surface p-6">
               <h2 className="mb-4 text-lg font-semibold text-primary">
-                {t('article.summary')}
+                {t('article.source') || '來源'}
               </h2>
               <div className="text-foreground/90">
-                {article.summary.split('\n').map((line, index) => (
-                  <p key={index} className="mb-2">
-                    {line.startsWith('- ') ? (
-                      <span className="flex items-start gap-2">
-                        <span className="text-primary">&#x2022;</span>
-                        <span>{line.slice(2)}</span>
-                      </span>
-                    ) : (
-                      line
-                    )}
+                <p className="mb-2">
+                  <span className="font-medium">原文連結：</span>
+                  <a
+                    href={article.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline hover:opacity-80"
+                  >
+                    {article.source_url}
+                  </a>
+                </p>
+                {article.source_date && (
+                  <p className="text-sm text-muted">
+                    發布日期：{new Date(article.source_date).toLocaleDateString('zh-TW')}
                   </p>
-                ))}
+                )}
               </div>
             </section>
           )}

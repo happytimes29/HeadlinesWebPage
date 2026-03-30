@@ -8,7 +8,11 @@ export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient<Database>(supabaseUrl, supabaseAnonKey)
   : null;
 
-export type Article = Database['public']['Tables']['articles']['Row'];
+export type Article = Database['public']['Tables']['articles']['Row'] & {
+  images?: string[] | null;
+  source_url?: string | null;
+  source_date?: string | null;
+};
 
 export async function getArticles(
   locale: string,
