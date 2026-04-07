@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ArticleContent from '@/components/ArticleContent';
 import JsonLd from '@/components/JsonLd';
-import { getArticleBySlug, getAllArticleSlugs } from '@/lib/supabase';
+import { getArticleBySlug, getAllArticleSlugs, getAdjacentArticles } from '@/lib/supabase';
 import { locales } from '@/i18n/config';
 
 // Force dynamic rendering
@@ -72,6 +73,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (!article) {
     notFound();
   }
+
+  // Fetch adjacent articles
+  const adjacent = await getAdjacentArticles(slug, locale);
+  (article as any).adjacent = adjacent;
 
   const formattedDate = new Date(article.published_at).toLocaleDateString(
     locale === 'zh-TW' ? 'zh-TW' : locale === 'zh-CN' ? 'zh-CN' : 'en-US',
@@ -147,6 +152,38 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 )}
               </div>
             </section>
+          )}
+
+          {/* Previous / Next Navigation */}
+          {article.adjacent && (
+            <nav className="mt-8 flex flex-wrap justify-between gap-4 border-t border-border pt-8">
+              {article.adjacent.prev ? (
+                <Link
+                  href={`/${locale}/articles/${article.adjacent.prev.slug}`}
+                  className="group flex flex-col items-start rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                >
+                  <span className="mb-1 text-sm text-muted">← 上一篇</span>
+                  <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
+                    {article.adjacent.prev.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+              {article.adjacent.next ? (
+                <Link
+                  href={`/${locale}/articles/${article.adjacent.next.slug}`}
+                  className="group flex flex-col items-end text-right rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                >
+                  <span className="mb-1 text-sm text-muted">下一篇 →</span>
+                  <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
+                    {article.adjacent.next.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </nav>
           )}
         </article>
       </main>

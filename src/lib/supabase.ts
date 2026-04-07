@@ -119,3 +119,37 @@ export async function getAllArticleSlugs() {
 
   return data;
 }
+
+export async function getAdjacentArticles(slug: string, locale: string) {
+  if (!supabase) {
+    console.warn('Supabase client not initialized');
+    return { prev: null, next: null };
+  }
+
+  // Get all articles ordered by published_at
+  const { data: allArticles, error } = await supabase
+    .from('articles')
+    .select('id, slug, title, published_at')
+    .eq('locale', locale)
+    .order('published_at', { ascending: false });
+
+  if (error || !allArticles) {
+    console.error('Error fetching adjacent articles:', error);
+    return { prev: null, next: null };
+  }
+
+  // Find current article index
+  const currentIndex = allArticles.findIndex(a => a.slug === slug);
+  
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  const prev = currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
+  const next = currentIndex > 0 ? allArticles[currentIndex - 1] : null;
+
+  return {
+    prev: prev ? { slug: prev.slug, title: prev.title } : null,
+    next: next ? { slug: next.slug, title: next.title } : null
+  };
+}
