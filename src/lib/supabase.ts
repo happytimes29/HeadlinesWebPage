@@ -133,20 +133,21 @@ export async function getAdjacentArticles(slug: string, locale: string) {
     .eq('locale', locale)
     .order('published_at', { ascending: false });
 
-  if (error || !allArticles) {
+  if (error || !allArticles || allArticles.length === 0) {
     console.error('Error fetching adjacent articles:', error);
     return { prev: null, next: null };
   }
 
-  // Find current article index
-  const currentIndex = allArticles.findIndex(a => a.slug === slug);
+  // Find current article index - explicitly type as any to avoid TypeScript issues
+  const articlesList = allArticles as any[];
+  const currentIndex = articlesList.findIndex((a: any) => a.slug === slug);
   
   if (currentIndex === -1) {
     return { prev: null, next: null };
   }
 
-  const prev = currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
-  const next = currentIndex > 0 ? allArticles[currentIndex - 1] : null;
+  const prev = currentIndex < articlesList.length - 1 ? articlesList[currentIndex + 1] : null;
+  const next = currentIndex > 0 ? articlesList[currentIndex - 1] : null;
 
   return {
     prev: prev ? { slug: prev.slug, title: prev.title } : null,

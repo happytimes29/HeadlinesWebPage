@@ -76,7 +76,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   // Fetch adjacent articles
   const adjacent = await getAdjacentArticles(slug, locale);
-  (article as any).adjacent = adjacent;
+  const articleWithAdjacent = { ...article, adjacent } as any;
 
   const formattedDate = new Date(article.published_at).toLocaleDateString(
     locale === 'zh-TW' ? 'zh-TW' : locale === 'zh-CN' ? 'zh-CN' : 'en-US',
@@ -155,29 +155,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           )}
 
           {/* Previous / Next Navigation */}
-          {article.adjacent && (
+          {articleWithAdjacent.adjacent && (
             <nav className="mt-8 flex flex-wrap justify-between gap-4 border-t border-border pt-8">
-              {article.adjacent.prev ? (
+              {articleWithAdjacent.adjacent.prev ? (
                 <Link
-                  href={`/${locale}/articles/${article.adjacent.prev.slug}`}
+                  href={`/${locale}/articles/${articleWithAdjacent.adjacent.prev.slug}`}
                   className="group flex flex-col items-start rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
                 >
                   <span className="mb-1 text-sm text-muted">← 上一篇</span>
                   <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
-                    {article.adjacent.prev.title}
+                    {articleWithAdjacent.adjacent.prev.title}
                   </span>
                 </Link>
               ) : (
                 <div />
               )}
-              {article.adjacent.next ? (
+              {articleWithAdjacent.adjacent.next ? (
                 <Link
-                  href={`/${locale}/articles/${article.adjacent.next.slug}`}
+                  href={`/${locale}/articles/${articleWithAdjacent.adjacent.next.slug}`}
                   className="group flex flex-col items-end text-right rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
                 >
                   <span className="mb-1 text-sm text-muted">下一篇 →</span>
                   <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
-                    {article.adjacent.next.title}
+                    {articleWithAdjacent.adjacent.next.title}
                   </span>
                 </Link>
               ) : (
