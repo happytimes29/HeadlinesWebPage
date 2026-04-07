@@ -156,33 +156,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Previous / Next Navigation */}
           {articleWithAdjacent.adjacent && (
-            <nav className="mt-8 flex flex-wrap justify-between gap-4 border-t border-border pt-8">
+            <nav className="mt-8 flex justify-between gap-4 border-t border-border pt-8">
               {articleWithAdjacent.adjacent.prev ? (
                 <Link
                   href={`/${locale}/articles/${articleWithAdjacent.adjacent.prev.slug}`}
-                  className="group flex flex-col items-start rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                  className="group flex flex-1 items-center rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
                 >
-                  <span className="mb-1 text-sm text-muted">← 上一篇</span>
-                  <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
+                  <span className="text-sm text-muted">← 上一篇</span>
+                  <span className="ml-2 font-medium text-foreground group-hover:text-primary line-clamp-1">
                     {articleWithAdjacent.adjacent.prev.title}
                   </span>
                 </Link>
-              ) : (
-                <div />
-              )}
+              ) : <div className="flex-1" />}
               {articleWithAdjacent.adjacent.next ? (
                 <Link
                   href={`/${locale}/articles/${articleWithAdjacent.adjacent.next.slug}`}
-                  className="group flex flex-col items-end text-right rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                  className="group flex flex-1 items-center justify-end rounded-lg border border-border bg-surface p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
                 >
-                  <span className="mb-1 text-sm text-muted">下一篇 →</span>
-                  <span className="font-medium text-foreground group-hover:text-primary line-clamp-2">
+                  <span className="mr-2 font-medium text-foreground group-hover:text-primary line-clamp-1">
                     {articleWithAdjacent.adjacent.next.title}
                   </span>
+                  <span className="text-sm text-muted">下一篇 →</span>
                 </Link>
-              ) : (
-                <div />
-              )}
+              ) : <div className="flex-1" />}
             </nav>
           )}
         </article>
