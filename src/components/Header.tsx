@@ -12,7 +12,6 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <Link href={`/${locale}`} className="flex items-center gap-2">
-          <span className="text-xl font-bold text-primary">JK</span>
           <span className="text-lg font-semibold">{t('site.name')}</span>
         </Link>
 
