@@ -14,31 +14,41 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     locale === 'zh-TW' ? 'zh-TW' : locale === 'zh-CN' ? 'zh-CN' : 'en-US',
     {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
     }
   );
 
   return (
-    <article className="group rounded-lg border border-border bg-surface p-6 transition-colors hover:border-primary/50 hover:bg-surface-hover">
-      <Link href={`/${locale}/articles/${article.slug}`}>
+    <article className="group relative overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-border hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1">
+      <Link href={`/${locale}/articles/${article.slug}`} className="block p-7">
+        {/* Category Badge */}
         {article.category && (
-          <span className="mb-2 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          <span className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             {article.category}
           </span>
         )}
-        <h2 className="mb-2 text-xl font-semibold text-foreground transition-colors group-hover:text-primary">
+        
+        {/* Title */}
+        <h2 className="mb-3 text-xl font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
           {article.title}
         </h2>
+        
+        {/* Summary */}
         {article.summary && (
-          <p className="mb-4 line-clamp-2 text-sm text-muted">
+          <p className="mb-5 line-clamp-2 text-sm leading-relaxed text-muted">
             {article.summary}
           </p>
         )}
-        <div className="flex items-center justify-between">
-          <time className="text-xs text-muted">{formattedDate}</time>
-          <span className="text-sm font-medium text-primary">
-            {t('article.readMore')} &rarr;
+        
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-4 border-t border-border/50">
+          <time className="text-xs text-muted/70">{formattedDate}</time>
+          <span className="flex items-center gap-1 text-sm font-medium text-primary opacity-0 transition-all group-hover:opacity-100">
+            {t('article.readMore')}
+            <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </span>
         </div>
       </Link>
