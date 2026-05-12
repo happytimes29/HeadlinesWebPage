@@ -35,9 +35,9 @@ export default function Header() {
           </Link>
           <Link
             href={`/${locale}/subscribe`}
-            className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+            className="rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
           >
-            {t('nav.home') === '首頁' ? '📧 訂閱' : '📧 Subscribe'}
+            {locale === 'zh-TW' || locale === 'zh-CN' ? '📧 訂閱' : '📧 Subscribe'}
           </Link>
 
           {/* Language Switcher */}
