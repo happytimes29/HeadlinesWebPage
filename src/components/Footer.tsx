@@ -9,20 +9,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-surface/50">
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          {/* Brand */}
-          <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
-                <span className="text-sm font-bold text-white">JK</span>
-              </div>
-              <span className="text-lg font-semibold">{t('site.name')}</span>
-            </div>
-            <p className="text-sm text-muted">
-              {t('site.tagline')}
-            </p>
-          </div>
-          
+        {/* Social Icons + Tagline Center */}
+        <div className="flex flex-col items-center gap-6 mb-8">
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition-all hover:border-primary hover:text-primary hover:bg-primary/10">
@@ -38,6 +26,15 @@ export default function Footer() {
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
           </div>
+          
+          {/* Tagline */}
+          <p className="text-sm text-muted">
+            {t('site.tagline')}
+          </p>
+        </div>
+        
+        {/* Links + Bottom */}
+        <div className="flex flex-col items-center gap-6 pt-8 border-t border-border/50">
           {/* Links */}
           <div className="flex items-center gap-6 text-sm text-muted">
             <a href={`/${'zh-TW'}/articles`} className="transition-colors hover:text-foreground">
@@ -47,11 +44,8 @@ export default function Footer() {
               {t('nav.home') === '首頁' ? '📧 訂閱' : '📧 Subscribe'}
             </a>
           </div>
-        </div>
-        
-        {/* Bottom */}
-        <div className="mt-10 flex flex-col items-center gap-4 pt-8 border-t border-border/50">
-          <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-border to-transparent" />
+          
+          {/* Copyright */}
           <p className="text-sm text-muted/60">
             &copy; {currentYear} {t('site.name')}. {t('footer.copyright')}
           </p>
