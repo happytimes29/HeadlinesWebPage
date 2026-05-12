@@ -52,13 +52,13 @@ export default async function HomePage({ params }: HomePageProps) {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
           
           <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">
-            <p className="mb-6 text-sm font-medium uppercase tracking-[0.2em] text-muted">
-              {t('site.name')}
-            </p>
-            <h1 className="mb-8 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-              <span className="gradient-text">{t('home.hero.title')}</span>
+            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+              <span className="gradient-text">{t('site.name')}</span>
             </h1>
-            <div className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
+            <p className="mx-auto max-w-2xl text-base font-medium text-muted">
+              {t('home.hero.title')}
+            </p>
+            <div className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           </div>
         </section>
 
