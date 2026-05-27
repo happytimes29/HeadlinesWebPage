@@ -23,8 +23,8 @@ export default function WritePageClient({ locale }: WritePageClientProps) {
   const [message, setMessage] = useState('');
 
   const categories = locale === 'zh-TW' 
-    ? ['科技趨勢', 'AI 應用', '硬體工程', '軟體開發', '產業觀察', '其他']
-    : ['Tech Trends', 'AI Applications', 'Hardware Engineering', 'Software Development', 'Industry Insights', 'Other'];
+    ? ['科技', '金融理財', '創業', '軟體開發', '產業觀察', '其他']
+    : ['Tech', 'Finance', 'Startup', 'Software Development', 'Industry Insights', 'Other'];
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
